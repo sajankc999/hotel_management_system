@@ -1,0 +1,81 @@
+User Management:
+
+User
+
+UserID (Primary Key)
+Username
+Password
+Email
+RoleID (Foreign Key referencing Role table)
+Role
+
+RoleID (Primary Key)
+RoleName
+Room Management:
+
+Room
+
+RoomID (Primary Key)
+RoomNumber
+RoomTypeID (Foreign Key referencing RoomType table)
+Availability
+Price
+RoomType
+
+RoomTypeID (Primary Key)
+TypeName
+Amenities
+Price
+Reservation Management:
+
+Reservation
+ReservationID (Primary Key)
+UserID (Foreign Key referencing User table)
+RoomID (Foreign Key referencing Room table)
+CheckInDate
+CheckOutDate
+Status
+Billing and Payment:
+
+Invoice
+InvoiceID (Primary Key)
+ReservationID (Foreign Key referencing Reservation table)
+TotalAmount
+PaymentStatus
+Staff Management:
+
+Staff
+
+StaffID (Primary Key)
+Username
+Password
+RoleID (Foreign Key referencing Role table)
+Task
+
+TaskID (Primary Key)
+StaffID (Foreign Key referencing Staff table)
+Description
+CompletionStatus
+DueDate
+Inventory Management:
+
+InventoryItem
+
+ItemID (Primary Key)
+ItemName
+Quantity
+ReorderLevel
+SupplierID (Foreign Key referencing Supplier table)
+Supplier
+
+SupplierID (Primary Key)
+SupplierName
+ContactInfo
+Guest Services:
+
+Feedback
+FeedbackID (Primary Key)
+UserID (Foreign Key referencing User table)
+FeedbackText
+Rating
+DateSubmitted
