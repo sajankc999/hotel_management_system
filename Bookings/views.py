@@ -35,19 +35,22 @@ class BookingViewset(ModelViewSet):
             check_out_date = data.get('check_out_date')
             room = Room.objects.filter(pk = room_id).first()
             # raise Exception(room)
-            past_reservation = Reservation.objects.filter(room = room_id)
-            if past_reservation:
-                if datetime.now() ==check_out_date:
-                    room.status ='V'
-                    room.save()
-            if room.status is not 'V':
-                return Response('this room is not available please select another room according to your requirement')
-            reservation=Reservation.objects.create(user=user,room=room,check_in_date=check_in_date,check_out_date=check_out_date,status="inactive")
-            room.status ="P"
-            room.save()
-            # raise Exception(reservation)
-            send_confrimation_mail(email = user.email, token = reservation.confirmation_token)
-            return Response('we have sent you a confirmation link .Please check your mail')
+            if room:
+                past_reservation = Reservation.objects.filter(room = room_id)
+                if past_reservation:
+                    if datetime.now() ==check_out_date:
+                        room.status ='V'
+                        room.save()
+                if room.status is not 'V':
+                    return Response('this room is not available please select another room according to your requirement')
+                reservation=Reservation.objects.create(user=user,room=room,check_in_date=check_in_date,check_out_date=check_out_date,status="inactive")
+                room.status ="P"
+                room.save()
+                # raise Exception(reservation)
+                send_confrimation_mail(email = user.email, token = reservation.confirmation_token)
+                return Response('we have sent you a confirmation link .Please check your mail')
+        else:
+            return Response('no room exists')
         return Response('data error')
     def get_serializer_class(self):
         if self.request.method == "PUT":

@@ -36,6 +36,7 @@ class CustomManager(UserManager):
         return self._create_user(email, password, **extra_fields)
 
 class User(AbstractUser):
+    full_name = models.CharField(max_length = 100)
     phone_number = models.CharField(max_length = 10)
     email = models.EmailField(max_length = 100,unique = True)
 
@@ -47,12 +48,20 @@ class User(AbstractUser):
     is_staff = models.BooleanField(default = False)
     is_superuser = models.BooleanField(default = False)
     is_guest = models.BooleanField(default = True)
-
+    is_Receptionist = models.BooleanField(default = False)
+    is_Cleaner = models.BooleanField(default = False)
+    is_Manager = models.BooleanField(default = False)
+    
     date_joined = models.DateField(default = timezone.now)
 
     objects = CustomManager()
 
-
+    class Meta:
+        permissions = [
+            ("view_all_staff", "Can view all staff details"),
+            ("change_delete_staff", "Can change or delete staff details"),
+            ("view_own_details", "Can view own details"),
+        ]
     
 
 

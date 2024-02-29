@@ -25,7 +25,7 @@ def Reservation_Created(sender,instance,*args, **kwargs):
             special_discount=special_discount,
             paid_amount=paid_amount,
         )
-        invoice = Invoice.objects.filter(reservation = instance).first()
+        # invoice = Invoice.objects.filter(reservation = instance).first()
 
 
 

@@ -44,4 +44,6 @@ urlpatterns = [
     path('Staff/',include("staff.urls")),
     path('accounting/',include('accounting.urls')),
     path('feedback/',include('Feedbacks.urls')),
+    path('inventory/',include('Inventory.urls')),
+    path('Rooms/',include('Rooms.urls')),
 ]

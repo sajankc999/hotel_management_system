@@ -16,8 +16,9 @@ def register(request):
     serializer.is_valid(raise_exception=True)
     email = serializer.validated_data.get('email')
     password = serializer.validated_data.get('password')
-
-    user = user_obj.objects.create_user(email=email, password=password)
+    full_name = serializer.validated_data.get('full_name')
+    phone_number = serializer.validated_data.get('phone_number')
+    user = user_obj.objects.create_user(email=email, password=password,full_name=full_name,phone_number=phone_number)
 
     if user:
        

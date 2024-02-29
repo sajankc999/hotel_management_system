@@ -1,5 +1,5 @@
 from django.db import models
-from front_desk.models import guest
+
 # Create your models here.
 from Bookings.models import Reservation
 from uuid import uuid4

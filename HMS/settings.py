@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'authUser',
     'rest_framework',
     'Rooms',
-    'front_desk',
     'accounting',
     'Bookings',
     'staff',
@@ -48,6 +47,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'Feedbacks',
     'Inventory',
+    'django_filters',
     
 ]
 
@@ -145,7 +145,9 @@ REST_FRAMEWORK = {
     # 'PAGE_SIZE': 10
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+
 }
 
 

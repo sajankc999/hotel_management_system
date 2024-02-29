@@ -5,11 +5,11 @@ from rest_framework.permissions import IsAdminUser
 # Create your views here.
 from .models import *
 from .serializer import *
-class SupplierSerializer(ModelViewSet):
+class Supplierview(ModelViewSet):
     queryset = Supplier.objects.all()
     serializer_class = SupplierSerializer
     permission_classes = (IsAdminUser,)
-class InvetoryItemSerializer(ModelViewSet):
+class InvetoryItemview(ModelViewSet):
     queryset = InventoryItem.objects.all()
     serializer_class = InventoryItemSerializer
     permission_classes = (IsAdminUser,)

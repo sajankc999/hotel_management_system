@@ -1,12 +1,12 @@
-from rest_framework.serializers import Serializer
+from rest_framework import serializers
 from .models import *
 
-class SupplierSerializer(Serializer.ModelSerializer):
+class SupplierSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
-        fields = "__al__"
+        fields = "__all__"
 
-class InventoryItemSerializer(Serializer.ModelSerializer):
+class InventoryItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = InventoryItem
         fields = "__all__"
