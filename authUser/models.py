@@ -56,12 +56,12 @@ class User(AbstractUser):
 
     objects = CustomManager()
 
-    class Meta:
-        permissions = [
-            ("view_all_staff", "Can view all staff details"),
-            ("change_delete_staff", "Can change or delete staff details"),
-            ("view_own_details", "Can view own details"),
-        ]
+    # class Meta:
+    #     permissions = [
+    #         ("view_all_staff", "Can view all staff details"),
+    #         ("change_delete_staff", "Can change or delete staff details"),
+    #         ("view_own_details", "Can view own details"),
+    #     ]
     
 
 

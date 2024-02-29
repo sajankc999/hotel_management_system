@@ -3,5 +3,6 @@ from .views import *
 
 urlpatterns = [
     path('bill',InvoiceView.as_view()),
+    path('payment/verify/<authtoken>',payment)
 ]
 

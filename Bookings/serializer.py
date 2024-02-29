@@ -3,7 +3,7 @@ from .models import *
 from Rooms.serializer import RoomSerializer
 from .utils import send_confrimation_mail
 from rest_framework.authtoken.models import Token
-from datetime import datetime,timedelta
+from django.utils import timezone
 class ReservationSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default = serializers.CurrentUserDefault())
     room = RoomSerializer(read_only = True)
@@ -11,18 +11,24 @@ class ReservationSerializer(serializers.ModelSerializer):
         queryset =Room.objects.all(),
         source = 'room'
     )
+    check_in_date = serializers.DateField()
+    check_out_date = serializers.DateField()
     class Meta:
         model = Reservation
         fields = ['user','room_id','room','check_in_date','check_out_date']
         # exclude  = ['status','confirmation_token']
-    def validate(self, attrs):
-        check_in = attrs.get('check_in_date')
-        if datetime.now() > check_in:
-            raise serializers.ValidationError('check-in date must be greater than today ')
-        if datetime.now() > attrs.get('check_out_date'):
-            raise serializers.ValidationError('check-out date must be greater than todays date')
-        return super().validate(attrs)
+    # def validate(self, attrs):
+    #     check_in = attrs.get('check_in_date')  
+    #     check_out = attrs.get('check_out_date')  
 
+        # # if timezone.now().date() > check_in_date:
+        #     raise serializers.ValidationError('Check-in date must be greater than today.')
+        # if timezone.now().date() > check_out_date:
+        #     raise serializers.ValidationError('Check-out date must be greater than today.')
+        # if check_in_date >= check_out_date:
+        #     raise serializers.ValidationError('Check-out date must be greater than check-in date.')
+
+        # return attrs
 class CancelReservationSerializer(serializers.ModelSerializer):
     
     user = serializers.HiddenField(default = serializers.CurrentUserDefault())

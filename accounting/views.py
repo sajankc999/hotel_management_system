@@ -17,6 +17,16 @@ class InvoiceView(generics.ListAPIView):
         
     
 
+def payment(request,authtoken):
+    inv = Invoice.objects.filter(payment_id=authtoken).first()
+    if inv:
+        res = Reservation.objects.filter(id = inv.pk).first()
+        room = Room.objects.filter(id=res.pk).first()
+        room.status="R"
+        room.save()
+        return HttpResponse(' room is now reserved')
+
+
 
 
 

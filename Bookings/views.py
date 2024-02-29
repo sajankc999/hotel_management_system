@@ -9,7 +9,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from .utils import *
 from datetime import datetime
-
+from django.utils import timezone
+from accounting.models import Invoice
 # Create your views here.
 from .models import *
 from .serializer import *
@@ -33,7 +34,13 @@ class BookingViewset(ModelViewSet):
             room_id = data.get("room_id")
             check_in_date = data.get('check_in_date')
             check_out_date = data.get('check_out_date')
+            # raise Exception(check_in_date)
             room = Room.objects.filter(pk = room_id).first()
+            # if timezone.now() > datetime.strptime(check_in_date, "%Y-%m-%d"):
+            #     return Response('Check-in date must be greater than today.')
+            # if timezone.now().date() > check_out_date:
+            #     return Response('Check-out date must be greater than today.')
+            
             # raise Exception(room)
             if room:
                 past_reservation = Reservation.objects.filter(room = room_id)
@@ -67,7 +74,8 @@ class BookingViewset(ModelViewSet):
             reservation.save()
             return Response(' you booking has been updated')
         return Response('you dont have any reservations')
-
+    def destroy(self, request, *args, **kwargs):
+        return Response('this is not available')
 
 def verify(request,authtoken):
     try:
@@ -80,8 +88,10 @@ def verify(request,authtoken):
             room=Room.objects.filter(id = reservation.room.pk).first()
             room.status='B'
             room.save()
-            
-            return HttpResponse("successfully registered")
+            inv = Invoice.objects.filter(reservation=reservation).first()
+            p_id=inv.payment_id
+            send_payment_mail(email = reservation.user.email ,token=p_id)
+            return HttpResponse("successfully booked . we have sent you another link to verify your payment please check you mailbox")
         else:
             return HttpResponse("wrong token")
     except Exception as e:

@@ -26,6 +26,7 @@ def Reservation_Created(sender,instance,*args, **kwargs):
             paid_amount=paid_amount,
         )
         # invoice = Invoice.objects.filter(reservation = instance).first()
+        
 
 
 

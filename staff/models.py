@@ -36,7 +36,7 @@ class Task(models.Model):
 def TaskSaved(sender, instance,*args,**kwargs):
     send_mail(
         "Task for you",
-        "hello employee, we have a task for you .please complete your task and report to your supervisor",
+        f"hello employee, we have a task for you .please complete your task and report to your supervisor \n {instance.task_details}",
         "falanahotel@mail.mail",
         [instance.staff.user.email],
     )
