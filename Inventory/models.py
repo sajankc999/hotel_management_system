@@ -25,7 +25,7 @@ def send_reorder_email(sender, instance, created, **kwargs):
             # print(instance.supplier.email)
             send_mail(
                 "Requesting for fulfillment of shortage in item",
-                f" dear supplier {instance.supplier.name} , product id:{instance.pk},name :{instance.name} is running out of stock . we need you to provide another batch of stock",
+                f" dear supplier {instance.supplier.name} , product id:{instance.pk},name :{instance.name} is running out of stock . we request you to provide another batch of stock",
                 "falanahotel@hh.com",
                 [instance.supplier.email,]
             )

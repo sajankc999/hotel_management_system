@@ -9,7 +9,7 @@ def send_confrimation_mail(email,token):
 
 def send_payment_mail(email,token):
     subject = "CONFIRMATION MAIL"
-    message =f'Dear user, please verify your request by clicking the link below. http://127.0.0.1:8000/payment/verify/{token}'
+    message =f'Dear user, please verify your request by clicking the link below. http://127.0.0.1:8000/accounting/payment/verify/{token}'
     from_email  = 'falanahotel'
     recipient_list =[email]
     send_mail(subject,message,from_email,recipient_list)

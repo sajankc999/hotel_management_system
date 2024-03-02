@@ -11,5 +11,5 @@ class Reservation(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     check_in_date = models.DateField(default = timezone.now)
     check_out_date = models.DateField()
-    status = models.CharField(max_length=20, default='inactive',choices = (('active','Active'),('inactive','Inactive'),('canceled','Cancled')))
+    status = models.CharField(max_length=20, default='inactive',choices = (('active','Active'),('inactive','Inactive'),('canceled','Canceled')))
     confirmation_token = models.UUIDField(default=uuid.uuid4, editable=False)  # Unique token for confirmation

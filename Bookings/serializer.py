@@ -15,7 +15,7 @@ class ReservationSerializer(serializers.ModelSerializer):
     check_out_date = serializers.DateField()
     class Meta:
         model = Reservation
-        fields = ['user','room_id','room','check_in_date','check_out_date']
+        fields = ['user','room_id','room','check_in_date','check_out_date','status']
         # exclude  = ['status','confirmation_token']
     # def validate(self, attrs):
     #     check_in = attrs.get('check_in_date')  
@@ -29,16 +29,16 @@ class ReservationSerializer(serializers.ModelSerializer):
         #     raise serializers.ValidationError('Check-out date must be greater than check-in date.')
 
         # return attrs
-class CancelReservationSerializer(serializers.ModelSerializer):
+# class CancelReservationSerializer(serializers.ModelSerializer):
     
-    user = serializers.HiddenField(default = serializers.CurrentUserDefault())
-    class Meta:
-        model = Reservation
-        fields = ['id','user']
+#     user = serializers.HiddenField(default = serializers.CurrentUserDefault())
+#     class Meta:
+#         model = Reservation
+#         fields = "__all__"
 
-    def update(self, instance, validated_data):
-        # raise Exception(instance)
-        instance.status = 'canceled'
-        instance.save()
-        Room.objects.filter(id = instance.room.pk).update(status = 'V')
-        return super().update(instance, validated_data)
+    # def update(self, instance, validated_data):
+    #     # raise Exception(instance)
+    #     instance.status = 'canceled'
+    #     instance.save()
+    #     Room.objects.filter(id = instance.room.pk).update(status = 'V')
+    #     return super().update(instance, validated_data)

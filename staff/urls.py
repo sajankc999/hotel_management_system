@@ -8,5 +8,5 @@ router.register('shifts',ShiftView,basename='shifts')
 router.register('taskadmin',Taskadminview,basename='task-admin')
 urlpatterns = [
     path("profile",Staffview.as_view()),
-    path('emp-task',Taskview.as_view()),
+    path('my-task',Taskview.as_view()),
 ]+router.urls

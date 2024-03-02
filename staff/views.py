@@ -44,7 +44,10 @@ class Taskview(generics.ListAPIView):
         # if self.request.user.is_superuser and self.request.user.is_staff:
         #     return Task.objects.all()
         if self.request.user.is_authenticated:
-            return Task.objects.filter(user = self.request.user)
+            staff= Staff.objects.filter(user = self.request.user).first()
+            # raise Exception(staff)
+            if staff:
+                return Task.objects.filter(staff=staff)
         
 class Taskadminview(ModelViewSet):
     queryset = Task.objects.all()
@@ -60,6 +63,6 @@ class Taskadminview(ModelViewSet):
        
 
 class ShiftView(ModelViewSet):
-    queryset = ShiftSerializer
-    serializer_class = StaffSerializer   
+    queryset = Shift.objects.all()
+    serializer_class = ShiftSerializer   
     permission_classes = (IsAdminUser,)

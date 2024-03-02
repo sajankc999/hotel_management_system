@@ -7,6 +7,6 @@ router.register('booking',BookingViewset,basename='booking')
 urlpatterns = [
     # path('booking',BookingViewset.as_view()),
     path('verify/<authtoken>',verify),
-    # path('booking',BookingViewset.as_view())
+    # path('cancelBooking/<res_id>',Cancel_reservation)
     
 ]+router.urls

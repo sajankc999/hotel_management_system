@@ -59,19 +59,24 @@ class BookingViewset(ModelViewSet):
         else:
             return Response('no room exists')
         return Response('data error')
-    def get_serializer_class(self):
-        if self.request.method == "PUT":
-            return CancelReservationSerializer
-        return ReservationSerializer    
+    # def get_serializer_class(self):
+    #     if self.request.method == "DELETE":
+    #         return CancelReservationSerializer
+    #     return ReservationSerializer    
     
     def update(self, request, *args, **kwargs):
         reservation = Reservation.objects.filter(user = self.request.user , room = request.data.get('room_id')).first()
-        room = Room.objects.filter(id =request.data.get('room_id') ).filter()
+        room = Room.objects.filter(id =request.data.get('room_id') ).first()
         if reservation:
             reservation.room = Room.objects.get(id =request.data.get('room_id') )
             reservation.check_in_date = request.data.get('check_in_date')
             reservation.check_out_date = request.data.get('check_out_date')
+            reservation.status =request.data.get('status')
+
             reservation.save()
+            if reservation.status=='canceled':
+                room.status = 'V'
+                room.save()
             return Response(' you booking has been updated')
         return Response('you dont have any reservations')
     def destroy(self, request, *args, **kwargs):
@@ -97,3 +102,30 @@ def verify(request,authtoken):
     except Exception as e:
         return HttpResponse("something went worng try again later")
         
+
+# class cancelView(generics.UpdateAPIView):
+#     queryset=Reservation.objects.all()
+#     serializer_class = CancelReservationSerializer
+
+#     def update(self, request, *args, **kwargs):
+#         try:
+#             room_id = request.get('room')
+#             res= Reservation.objects.filter(user=self.request.user,room = room_id).first()
+#             if res:
+#                 res.status='inactive'
+#                 Room.objects.filter(id = res.room.pk).update(status = 'V')
+#                 res.save()
+#         except Exception as e:
+#             return Response(e)
+
+# def Cancel_reservation(request,res_id):
+#     if request.user:
+#         res = Reservation.objects.filter(user=request.user,id = res_id)
+#         if res:
+#             res.status='canceled'
+#             Room.objects.filter(id = res.room.pk).update(status = 'V')
+#             res.save() 
+#         else:
+#             return HttpResponse("please check the inputs")
+#     else:
+#         return HttpResponse('no user provided')

@@ -11,7 +11,7 @@ class InvoiceView(generics.ListAPIView):
     serializer_class = InvoiceSerializer
 
     def get_queryset(self):
-        inc= Invoice.objects.filter(reservation__user = self.request.user).first()
+        inc= Invoice.objects.filter(reservation__user = self.request.user)
         if inc:
             return inc
         
@@ -20,11 +20,15 @@ class InvoiceView(generics.ListAPIView):
 def payment(request,authtoken):
     inv = Invoice.objects.filter(payment_id=authtoken).first()
     if inv:
+        inv.is_paid = True
         res = Reservation.objects.filter(id = inv.pk).first()
-        room = Room.objects.filter(id=res.pk).first()
-        room.status="R"
-        room.save()
-        return HttpResponse(' room is now reserved')
+        print(res)
+        room = Room.objects.filter(id=res.room.pk).update(status='R')
+        print(room)
+        
+        inv.save()
+        
+        return HttpResponse(' verification successfull.your room is now reserved')
 
 
 
