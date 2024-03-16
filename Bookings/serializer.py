@@ -18,15 +18,15 @@ class ReservationSerializer(serializers.ModelSerializer):
         fields = ['user','room_id','room','check_in_date','check_out_date','status']
         # exclude  = ['status','confirmation_token']
     # def validate(self, attrs):
-    #     check_in = attrs.get('check_in_date')  
-    #     check_out = attrs.get('check_out_date')  
-
-        # # if timezone.now().date() > check_in_date:
-        #     raise serializers.ValidationError('Check-in date must be greater than today.')
-        # if timezone.now().date() > check_out_date:
-        #     raise serializers.ValidationError('Check-out date must be greater than today.')
-        # if check_in_date >= check_out_date:
-        #     raise serializers.ValidationError('Check-out date must be greater than check-in date.')
+    #     check_in_date = attrs.get('check_in_date')  
+    #     check_out_date = attrs.get('check_out_date')  
+    #     raise Exception(check_out_date,check_in_date,timezone.now().date())
+    #     if timezone.now().date() > check_in_date:
+    #         raise serializers.ValidationError('Check-in date must be greater than today.')
+    #     if timezone.now().date() > check_out_date:
+    #         raise serializers.ValidationError('Check-out date must be greater than today.')
+    #     if check_in_date >= check_out_date:
+    #         raise serializers.ValidationError('Check-out date must be greater than check-in date.')
 
         # return attrs
 # class CancelReservationSerializer(serializers.ModelSerializer):

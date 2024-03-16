@@ -62,7 +62,7 @@ class Taskadminview(ModelViewSet):
     #     return Response('invalid credentials')
        
 
-class ShiftView(ModelViewSet):
+class ShiftadminView(ModelViewSet):
     queryset = Shift.objects.all()
     serializer_class = ShiftSerializer   
     permission_classes = (IsAdminUser,)

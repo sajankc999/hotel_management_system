@@ -36,10 +36,12 @@ class BookingViewset(ModelViewSet):
             check_out_date = data.get('check_out_date')
             # raise Exception(check_in_date)
             room = Room.objects.filter(pk = room_id).first()
-            # if timezone.now() > datetime.strptime(check_in_date, "%Y-%m-%d"):
-            #     return Response('Check-in date must be greater than today.')
-            # if timezone.now().date() > check_out_date:
-            #     return Response('Check-out date must be greater than today.')
+            if datetime.now() > datetime.strptime(check_in_date, "%Y-%m-%d"):
+                return Response('Check-in date must be greater than today.')
+            if datetime.now() >= datetime.strptime(check_out_date, "%Y-%m-%d"):
+                return Response('Check-out date must be greater than today.')
+            if  datetime.strptime(check_in_date, "%Y-%m-%d")== datetime.strptime(check_out_date, "%Y-%m-%d"):
+                return Response('minimum reservation day is 1')
             
             # raise Exception(room)
             if room:
@@ -60,7 +62,7 @@ class BookingViewset(ModelViewSet):
             return Response('no room exists')
         return Response('data error')
     # def get_serializer_class(self):
-    #     if self.request.method == "DELETE":
+    #     if self.request.method == "PUT":
     #         return CancelReservationSerializer
     #     return ReservationSerializer    
     
